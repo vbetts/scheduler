@@ -2,6 +2,23 @@ var HOUR_HEIGHT = 42; /* pixels */
 var MS_PER_HOUR = 3600000;
 var MINS_PER_HOUR = 60;
 
+var appointments = [];
+var nextId = 1;
+
+
+$(document).ready(function(){
+	var now = new Date();
+	now.setMinutes(0);
+	now.setSeconds(0);
+	now.setMilliseconds(0);
+	$("#start_date")[0].valueAsDate = now;
+	$("#start_time")[0].valueAsDate = now;
+
+	now.setHours(now.getHours() + 1);
+
+	$("#end_time")[0].valueAsDate = now;
+});
+
 function insertAppointment(appt) {
 	
 	var week_start = getStartOfWeek();
@@ -17,23 +34,38 @@ function insertAppointment(appt) {
 		var day = appt.start.getDay();
 		
 		var height = ((appt.end.getTime() - appt.start.getTime())/MS_PER_HOUR) * HOUR_HEIGHT;
-	
+
 		$('.day:eq(' + day + ')')
 		.append(
 			$('<div>')
 			.addClass('appointment')
 			.css('top', top + 'px')
 			.css('height', height + 'px')
+			.attr('id', appt.id)
 			.text(appt.name)
+			.append(
+				$('<span>')
+				.addClass('glyphicon glyphicon-minus-sign')
+				.css('color', 'red')
+				.css('float', 'right')
+				.css('margin', '1px')
+				.click(deleteAppointment)
+				)/* append span */
 			);
-	} else if (appt.start < week_start || appt.start > week_end ){
+	} else {
 		$('#error').append(
 			$('<p>')
 			.addClass('text-danger')
 			.text('Date is out of bounds: Please select a date between Midnight ' + week_start.toDateString()+ ' and 11:59pm ' + week_end.toDateString())
 			);
+
 	} /* end if statement */
-} /* inserAppointment */
+
+} /* insertAppointment */
+
+function resizeAppointments() {
+
+}
 
 function parseAppointment() {
 	var name = $("#name").val();
@@ -49,7 +81,7 @@ function parseAppointment() {
 		start: start,
 		end: end
 	};
-}
+}/* parseAppointment */
 
 function getStartOfWeek(){
 	var week_start = new Date();
@@ -60,16 +92,23 @@ function getStartOfWeek(){
 
 	return week_start;
 
-}
+}/* getStartOfWeek */
 
 function getEndOfWeek() {
 	var end = getStartOfWeek();
 	end.setDate(end.getDate() + 7);
 	return end;
 
-}
+} /* getEndOfWeek */
 
 function createAppointment() {
 	var appt = parseAppointment();
+	appt.id = nextId;
+	nextId += 1;
+	appointments.append(appt);
 	insertAppointment(appt);
+} /* createAppointment */
+
+function deleteAppointment() {
+	$(this).closest('.appointment').remove();
 }
