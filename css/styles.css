@@ -18,13 +18,13 @@
     padding-top: 3%;
 }
 
-.day {
+.column {
     position: relative;
     float: left;
     width: 140px;
     height: 1008px;  /* 24 hours * 42 px / hour */
-    background: #eee;
-    border-left: 1px black solid;
+    background: #F8F8F8;
+    border-left: 1px #C9C9C9 solid;
 }
 
 #hours { 
@@ -34,11 +34,11 @@
 
 .time {
 	height: 42px;
-	border-bottom: 1px black dotted;
+	border-bottom: 1px #C9C9C9 dotted;
 }
 
 .appointment {
     position: absolute;
-    background: #E3E3FF;
+    background: #AFD7FF;
     width: 100%;
 }

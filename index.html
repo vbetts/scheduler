@@ -44,7 +44,7 @@
 				<div id="align_form">
 					<div class="collapse" id="show_appt_form">
 						<div class="well" id="appt_form_container">
-							<form class="form-inline">
+							<form class="form-inline" onsubmit="createAppointment()">
 								<div class="form-group">
 									<label for="name">Event Name: </label>
 									<input type="text" class="form-control" id="name">
@@ -55,20 +55,21 @@
 								</div>
 								<div class="form-group">
 									<label for="start_time">Start time: </label>
-									<input type="time" class="form-control" id="start_time">
+									<input type="time" class="form-control" id="start_time" step="900">
 								</div>
 								<div class="form-group">
 									<label for="end_time">End time: </label>
-									<input type="time" class="form-control" id="end_time">
+									<input type="time" class="form-control" id="end_time" step="900">
 								</div>
+								<button type="submit" class="btn btn-success btn-sm" id="new_appt">Submit</button>
 							</form>
 						</div>
 					</div>
 				</div>
 			</div>
-			
+			<div id="error" class="text-center"></div>
 			<div class="week">
-				<div class="day" id="hours">
+				<div class="column" id="hours">
 					<div class="time">12am</div>
 					<div class="time">1am</div>
 					<div class="time">2am</div>
@@ -94,57 +95,37 @@
 					<div class="time">10pm</div>
 					<div class="time">11pm</div>
 				</div>
-				<div class="day" id="sunday">
-					
-					<div class="appointment" style="top: 294px; /* 7h x 42px */ height: 10.5px; /* 0.25h x 42px */">
-						7:00-7:15 Wake up
-					</div>
 
-					<div class="appointment" style="top: 441px; /* 10.5h x 42px */ height: 42px; /* 1h x 42px */">
-						10:30-11:30 Walk Milo
-					</div>
-
-					<div class="appointment" style="top: 514.5px; /* 12.25h x 42px */ height: 21px; /* 0.5h x 42px */">
-						12:15-12:45 Eat Lunch
-					</div>
-
+				<div class="day column">
 				</div>
 				
+				<div class="day column">	
+				</div>
 
-				<div class="day" id="monday">
-					<div class="appointment">
-					</div>
+				<div class="day column">
 				</div>
-				<div class="day" id="tuesday">
-					<div class="appointment">
-					</div>
+
+				<div class="day column">
 				</div>
-				<div class="day" id="wednesday">
-					<div class="appointment">
-					</div>
+
+				<div class="day column">
 				</div>
-				<div class="day" id="thursday">
-					<div class="appointment">
-					</div>
+
+				<div class="day column">
 				</div>
-				<div class="day" id="friday">
-					<div class="appointment">
-					</div>
-				</div>
-				<div class="day" id="saturday">
-					<div class="appointment">
-					</div>
+
+				<div class="day column">
 				</div>
 
 			</div>
 			
-
 		</div>
 	</div><!-- /.container -->
 
 </body>
 
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="js/scheduler.js"></script>
 
 </html>
