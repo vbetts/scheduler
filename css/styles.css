@@ -41,4 +41,19 @@
     position: absolute;
     background: #AFD7FF;
     width: 100%;
+    border: 1px solid #7A96B2;
+}
+
+.timeheader {
+	width: 65px;
+	float: left;
+
+}
+
+.day_header {
+	position: relative;
+    float: left;
+    width: 140px;
+    font-weight: bold;
+
 }

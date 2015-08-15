@@ -44,7 +44,7 @@
 				<div id="align_form">
 					<div class="collapse" id="show_appt_form">
 						<div class="well" id="appt_form_container">
-							<form class="form-inline" onsubmit="createAppointment()">
+							<div class="form-inline">
 								<div class="form-group">
 									<label for="name">Event Name: </label>
 									<input type="text" class="form-control" id="name">
@@ -61,13 +61,23 @@
 									<label for="end_time">End time: </label>
 									<input type="time" class="form-control" id="end_time" step="900">
 								</div>
-								<button type="submit" class="btn btn-success btn-sm" id="new_appt">Submit</button>
-							</form>
+								<button type="button" class="btn btn-success btn-sm" id="new_appt" onclick="createAppointment()">Submit</button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div id="error" class="text-center"></div>
+			<div class="timeheader">&nbsp;</div>
+			<div class="day_header">Sunday</div>
+			<div class="day_header">Monday</div>
+			<div class="day_header">Tuesday</div>
+			<div class="day_header">Wednesday</div>
+			<div class="day_header">Thursday</div>
+			<div class="day_header">Friday</div>
+			<div class="day_header">Saturday</div>
+
+
 			<div class="week">
 				<div class="column" id="hours">
 					<div class="time">12am</div>

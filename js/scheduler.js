@@ -2,9 +2,10 @@ var HOUR_HEIGHT = 42; /* pixels */
 var MS_PER_HOUR = 3600000;
 var MINS_PER_HOUR = 60;
 
-var appointments = [];
+var appointments = {};
 var nextId = 1;
 
+/* on load, set default values for form inputs */
 
 $(document).ready(function(){
 	var now = new Date();
@@ -19,22 +20,23 @@ $(document).ready(function(){
 	$("#end_time")[0].valueAsDate = now;
 });
 
+
+
 function insertAppointment(appt) {
 	
 	var week_start = getStartOfWeek();
 	var week_end = getEndOfWeek();
 
-	console.log(week_start);
-	console.log(week_end);
-
+	/* calculate size of appointment box */
 	if (appt.start >= week_start && appt.start <= week_end){
 		var time = (appt.start.getHours() * MINS_PER_HOUR + appt.start.getMinutes())/MINS_PER_HOUR; /* find total number of minutes since midnight, convert to # hours */
 		var top = time * HOUR_HEIGHT; /* number of hours * 42 pixels per hour */
 		
 		var day = appt.start.getDay();
 		
-		var height = ((appt.end.getTime() - appt.start.getTime())/MS_PER_HOUR) * HOUR_HEIGHT;
+		var height = ((appt.end.getTime() - appt.start.getTime())/MS_PER_HOUR) * HOUR_HEIGHT; /* hours since midnight of start time * height of one hour*/
 
+		/* append appointment to day div or output error if out of bounds */
 		$('.day:eq(' + day + ')')
 		.append(
 			$('<div>')
@@ -59,13 +61,92 @@ function insertAppointment(appt) {
 			.text('Date is out of bounds: Please select a date between Midnight ' + week_start.toDateString()+ ' and 11:59pm ' + week_end.toDateString())
 			);
 
-	} /* end if statement */
+	} 
 
-} /* insertAppointment */
+} 
 
-function resizeAppointments() {
+/* check for overlapping appointments and resize accordingly */
+
+function resizeAppointments(start, end) {
+	var overlaps = [];
+	var endTimes = [];
+	var hasOverlapped = 0;
+	var overlapIds = {};
+	
+	do {
+		/*
+		For each object in global variable 'appointments', check if it overlaps with the start time and end times passed
+		into the function, or if it has already been added to the list of overlaps
+		*/
+		hasOverlapped = overlaps.length;
+		for (var id in appointments){
+			if (appointments.hasOwnProperty(id)) {
+				var a = appointments[id];
+
+				if (start >= a.end || end <= a.start || overlapIds[a.id]){
+					continue;
+				} else {
+					if (a.start < start){
+						start = a.start;
+					}
+
+					if (a.end > end){
+						end = a.end;
+					}
+					overlapIds[a.id] = true;
+					overlaps.push(a);
+				}
+
+			}
+		}
+	} while ( hasOverlapped != overlaps.length );
+
+	overlaps.sort(
+		function(a, b){
+			if (a.start < b.start){
+				return -1;
+			} else if (a.start > b.start){
+				return 1;
+			} else {
+				return 0;
+			}
+		}); 
+
+	/*  assign a column value to each overlapping appointment*/
+	for (var x = 0; x < overlaps.length; x++){
+		var item = overlaps[x];
+		var columnSet = false;
+
+		for (var i = 0; i < endTimes.length; i++){
+			if (item.start >= endTimes[i]){
+				item.column = i;
+				endTimes[i] = item.end;
+				columnSet = true;
+				break;
+			}
+
+		}
+
+		if (columnSet == false){
+			endTimes.push(item.end);
+			item.column = endTimes.length - 1;
+		}
+	}
+
+	var columns = endTimes.length;
+	for (var x = 0; x < overlaps.length; x++){
+		var item = overlaps[x];
+
+		$('#' + item.id)
+		.css('width', 100/columns + '%')
+		.css('left', (100/columns)*item.column + '%')
+	}
+
+
 
 }
+
+/* get values from form and create JSON object */
 
 function parseAppointment() {
 	var name = $("#name").val();
@@ -81,7 +162,9 @@ function parseAppointment() {
 		start: start,
 		end: end
 	};
-}/* parseAppointment */
+}
+
+/* Find beginning and end of week to determine whether submitted event is out of bounds */ 
 
 function getStartOfWeek(){
 	var week_start = new Date();
@@ -92,23 +175,40 @@ function getStartOfWeek(){
 
 	return week_start;
 
-}/* getStartOfWeek */
+}
 
 function getEndOfWeek() {
 	var end = getStartOfWeek();
 	end.setDate(end.getDate() + 7);
 	return end;
 
-} /* getEndOfWeek */
+} 
 
-function createAppointment() {
+/* master function called onclick to create appointments */
+
+window.createAppointment = function() {
 	var appt = parseAppointment();
 	appt.id = nextId;
 	nextId += 1;
-	appointments.append(appt);
+	appointments[appt.id] = appt;
 	insertAppointment(appt);
-} /* createAppointment */
 
-function deleteAppointment() {
-	$(this).closest('.appointment').remove();
+	resizeAppointments(appt.start, appt.end);
+	
+}
+
+window.deleteAppointment = function() {
+
+	var appointmentDiv = $(this).closest('.appointment');
+
+	var id = appointmentDiv.attr('id');
+
+	var start = appointments[id].start;
+	var end = appointments[id].end;
+
+	delete appointments[id];	
+	appointmentDiv.remove();
+
+	resizeAppointments(start, end);
+
 }
