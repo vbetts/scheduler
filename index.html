@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Scheduler</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/template.css">
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" type="button" href="#">Scheduler</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+			</div><!--/.nav-collapse -->
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="starter-template">
+
+			<button type="button" class="btn btn-default btn-lg" data-toggle="collapse" data-target="#show_appt_form" aria-expanded="false" aria-controls="show_appt_form" id="add_appt">
+
+				<span class="glyphicon glyphicon-plus-sign" aria-hidden="true" id="plus"></span>Appointment
+
+			</button>
+			<div class="row">
+				<div id="align_form">
+					<div class="collapse" id="show_appt_form">
+						<div class="well" id="appt_form_container">
+							<form class="form-inline">
+								<div class="form-group">
+									<label for="name">Event Name: </label>
+									<input type="text" class="form-control" id="name">
+								</div>
+								<div class="form-group">
+									<label for="start_date">Date: </label>
+									<input type="date" class="form-control" id="start_date">
+								</div>
+								<div class="form-group">
+									<label for="start_time">Start time: </label>
+									<input type="time" class="form-control" id="start_time">
+								</div>
+								<div class="form-group">
+									<label for="end_time">End time: </label>
+									<input type="time" class="form-control" id="end_time">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="week">
+				<div class="day" id="hours">
+					<div class="time">12am</div>
+					<div class="time">1am</div>
+					<div class="time">2am</div>
+					<div class="time">3am</div>
+					<div class="time">4am</div>
+					<div class="time">5am</div>
+					<div class="time">6am</div>
+					<div class="time">7am</div>
+					<div class="time">8am</div>
+					<div class="time">9am</div>
+					<div class="time">10am</div>
+					<div class="time">11am</div>
+					<div class="time">Noon</div>
+					<div class="time">1pm</div>
+					<div class="time">2pm</div>
+					<div class="time">3pm</div>
+					<div class="time">4pm</div>
+					<div class="time">5pm</div>
+					<div class="time">6pm</div>
+					<div class="time">7pm</div>
+					<div class="time">8pm</div>
+					<div class="time">9pm</div>
+					<div class="time">10pm</div>
+					<div class="time">11pm</div>
+				</div>
+				<div class="day" id="sunday">
+					
+					<div class="appointment" style="top: 294px; /* 7h x 42px */ height: 10.5px; /* 0.25h x 42px */">
+						7:00-7:15 Wake up
+					</div>
+
+					<div class="appointment" style="top: 441px; /* 10.5h x 42px */ height: 42px; /* 1h x 42px */">
+						10:30-11:30 Walk Milo
+					</div>
+
+					<div class="appointment" style="top: 514.5px; /* 12.25h x 42px */ height: 21px; /* 0.5h x 42px */">
+						12:15-12:45 Eat Lunch
+					</div>
+
+				</div>
+				
+
+				<div class="day" id="monday">
+					<div class="appointment">
+					</div>
+				</div>
+				<div class="day" id="tuesday">
+					<div class="appointment">
+					</div>
+				</div>
+				<div class="day" id="wednesday">
+					<div class="appointment">
+					</div>
+				</div>
+				<div class="day" id="thursday">
+					<div class="appointment">
+					</div>
+				</div>
+				<div class="day" id="friday">
+					<div class="appointment">
+					</div>
+				</div>
+				<div class="day" id="saturday">
+					<div class="appointment">
+					</div>
+				</div>
+
+			</div>
+			
+
+		</div>
+	</div><!-- /.container -->
+
+</body>
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</html>

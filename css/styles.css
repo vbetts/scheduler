@@ -1,0 +1,44 @@
+#add_appt {
+	float: left;
+	clear: right;
+}
+
+#plus {
+	color: #00E600;
+	padding-right: 5px;
+}
+
+#align_form {
+	float: left;
+}
+
+.week {
+    font-family: sans-serif;
+    font-size: 10pt;
+    padding-top: 3%;
+}
+
+.day {
+    position: relative;
+    float: left;
+    width: 140px;
+    height: 1008px;  /* 24 hours * 42 px / hour */
+    background: #eee;
+    border-left: 1px black solid;
+}
+
+#hours { 
+	width: 65px;
+	border-left: none;
+}
+
+.time {
+	height: 42px;
+	border-bottom: 1px black dotted;
+}
+
+.appointment {
+    position: absolute;
+    background: #E3E3FF;
+    width: 100%;
+}
